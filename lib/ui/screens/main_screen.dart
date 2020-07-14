@@ -172,11 +172,6 @@ class MainScreen extends StatelessWidget {
                                           minTime: DateTime(2020, 1, 1),
                                           onConfirm: (date) {
                                             String dateformate ="${date.year.toString()}-${date.month.toString().padLeft(2,'0')}-${date.day.toString().padLeft(2,'0')}";
-
-                                           // String day='${date.day}';
-                                            //String month='${date.month}';
-                                            //String year='${date.year}';
-                                            //String selecteddate=day+'-'+month+'-'+year;
                                             setDate(dateformate);
                                           });
                                     }),

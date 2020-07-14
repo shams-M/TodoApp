@@ -9,9 +9,6 @@ class ItemTask extends StatelessWidget {
   Task task;
   ItemTask(this.task);
   GlobalKey<FormState> formKey2=GlobalKey();
-  //String title='${Task().title}';
-  //String desc='${Task().desc}'; //task description
-  //String taskDate='${Task().date}';
 
   setTitle(String val) {
     task.title = val;
@@ -59,7 +56,25 @@ class ItemTask extends StatelessWidget {
                 Row(mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(icon: Icon(Icons.delete), onPressed: (){
-                    Provider.of<DBProvider>(context, listen: false).deleteTask(task);
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(title: Text('Delete This Task ?'),
+                              actions: <Widget>[
+                                FlatButton(
+                                    onPressed: () {
+                                      Provider.of<DBProvider>(context, listen: false).deleteTask(task);
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('Yes',style: TextStyle(color: Colors.pink[600]),)),
+                                FlatButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('No',style: TextStyle(color: Colors.grey[500]))),
+                              ],
+                            );
+                          });
                   }),
                     IconButton(icon: Icon(Icons.edit), onPressed: () {
                       showModalBottomSheet(isScrollControlled: true,
@@ -144,12 +159,7 @@ class ItemTask extends StatelessWidget {
                                                   minTime: DateTime(2020, 1, 1),
                                                   onConfirm: (date) {
                                                     String dateformate ="${date.year.toString()}-${date.month.toString().padLeft(2,'0')}-${date.day.toString().padLeft(2,'0')}";
-
-                                                    //String day='${date.day}';
-                                                     // String month='${date.month}';
-                                                      //String year='${date.year}';
-                                                     // String selecteddate=day+'-'+month+'-'+year;
-                                                      setTDate(dateformate);
+                                                    setTDate(dateformate);
                                                   });
                                             }),
                                       ),
